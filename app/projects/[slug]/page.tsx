@@ -15,10 +15,10 @@ interface ProjectParams {
   slug: string;
 }
 
-interface ProjectPageProps {
+type PageProps = {
   params: ProjectParams;
   searchParams?: {[key: string]: string | string[] | undefined};
-}
+};
 
 export async function generateStaticParams(): Promise<ProjectParams[]> {
   const repos = await fetchRepositories("MrBiscuit921");
@@ -27,7 +27,7 @@ export async function generateStaticParams(): Promise<ProjectParams[]> {
   }));
 }
 
-export default async function ProjectPage({params}: {params: ProjectParams}) {
+export default async function ProjectPage({params}: PageProps) {
   const {slug} = params;
   const repos = await fetchRepositories("MrBiscuit921");
   const repo = repos.find((r) => r.name === slug);
